@@ -189,8 +189,12 @@ export class NgOpenApiGen {
             }
             if (model.imports) {
                 model.imports = model.imports.sort((a: Import,
-                                                    b: Import) => a.name.localeCompare(
-                    b.name));
+                                                    b: Import) => a.qualifiedName.localeCompare(
+                    b.qualifiedName));
+            }
+            if (model.additionalDependencies) {
+                model.additionalDependencies = model.additionalDependencies.sort(
+                    (a: string, b: string) => a.localeCompare(b));
             }
         }
         return models;
