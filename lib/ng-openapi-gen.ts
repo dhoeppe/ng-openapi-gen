@@ -196,23 +196,6 @@ export class NgOpenApiGen {
         return models;
     }
 
-    private sortServices(services: Service[]): Service[] {
-        services.sort((a, b) => a.name.localeCompare(b.name));
-        for (const service of services) {
-            if (service.imports) {
-                service.imports = service.imports.sort((a: Import,
-                                                        b: Import) => a.name.localeCompare(
-                    b.name));
-            }
-            if (service.operations) {
-                service.operations = service.operations.sort((a: Operation,
-                                                              b: Operation) => a.methodName.localeCompare(
-                    b.methodName));
-            }
-        }
-        return services;
-    }
-
     private readServices() {
         const defaultTag = this.options.defaultTag || 'Api';
 
@@ -289,6 +272,23 @@ export class NgOpenApiGen {
             const service    = new Service(tag, operations, this.options);
             this.services.set(tag.name, service);
         }
+    }
+
+    private sortServices(services: Service[]): Service[] {
+        services.sort((a, b) => a.name.localeCompare(b.name));
+        for (const service of services) {
+            if (service.imports) {
+                service.imports = service.imports.sort((a: Import,
+                                                        b: Import) => a.name.localeCompare(
+                    b.name));
+            }
+            if (service.operations) {
+                service.operations = service.operations.sort((a: Operation,
+                                                              b: Operation) => a.id.localeCompare(
+                    b.id));
+            }
+        }
+        return services;
     }
 
     private ignoreUnusedModels() {
