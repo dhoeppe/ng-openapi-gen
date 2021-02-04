@@ -283,7 +283,7 @@ export class NgOpenApiGen {
         for (const service of services) {
             if (service.imports) {
                 service.imports = service.imports.sort((a: Import,
-                                                        b: Import) => a.name.localeCompare(
+                                                        b: Import) => a.qualifiedName.localeCompare(
                     b.name));
             }
             if (service.operations) {
